@@ -1,10 +1,44 @@
 body {
-  background-color: black;
-  color: white;
-  text-align: center;
+  margin: 0;
   font-family: Arial;
 }
 
-h1 {
-  color: yellow;
+.app {
+  max-width: 400px;
+  margin: auto;
+  border: 1px solid gray;
+}
+
+.header {
+  background: #075e54;
+  color: white;
+  padding: 15px;
+}
+
+.chat-list {
+  padding: 10px;
+}
+
+.chat {
+  background: #dcf8c6;
+  margin: 5px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.footer {
+  display: flex;
+  padding: 10px;
+}
+
+input {
+  flex: 1;
+  padding: 10px;
+}
+
+button {
+  background: green;
+  color: white;
+  border: none;
+  padding: 10px;
 }
