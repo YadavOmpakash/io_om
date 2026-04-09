@@ -1,44 +1,107 @@
 body {
+  font-family: Arial, sans-serif;
   margin: 0;
-  font-family: Arial;
+  background: #f4f4f4;
 }
 
-.app {
-  max-width: 400px;
-  margin: auto;
-  border: 1px solid gray;
-}
-
-.header {
-  background: #075e54;
+/* HEADER */
+header {
+  background: #222;
   color: white;
   padding: 15px;
+  text-align: center;
 }
 
-.chat-list {
+/* NAVBAR */
+nav {
+  background: #444;
   padding: 10px;
+  text-align: center;
 }
 
-.chat {
-  background: #dcf8c6;
-  margin: 5px;
-  padding: 10px;
-  border-radius: 5px;
+nav a {
+  color: white;
+  margin: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
 }
 
-.footer {
-  display: flex;
-  padding: 10px;
+nav a:hover {
+  color: yellow;
+  transform: scale(1.1);
 }
 
-input {
-  flex: 1;
-  padding: 10px;
+nav button {
+  background: black;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+}
+
+/* MAIN */
+main {
+  padding: 20px;
+}
+
+section, article, aside {
+  background: white;
+  margin: 15px 0;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px gray;
+}
+
+/* FORM */
+form input, textarea, select {
+  width: 100%;
+  padding: 8px;
+  margin: 5px 0;
 }
 
 button {
   background: green;
   color: white;
-  border: none;
   padding: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background: darkgreen;
+}
+
+/* TABLE */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid gray;
+  padding: 8px;
+}
+
+th {
+  background: #ddd;
+}
+
+/* MEDIA */
+iframe, video, audio {
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* FOOTER */
+footer {
+  background: #222;
+  color: white;
+  text-align: center;
+  padding: 10px;
+}
+
+/* DARK MODE */
+.dark {
+  background: #111;
+  color: white;
 }
