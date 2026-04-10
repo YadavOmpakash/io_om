@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>😀 Emoji Generator</h2>
+
+<button onclick="emoji()">Show Emoji</button>
+<h1 id="e"></h1>
+
+<a href="index.html">⬅ Back</a>
+
+<script>
+function emoji(){
+  let arr=["😀","😂","😍","😎","🔥"];
+  document.getElementById("e").innerText = arr[Math.floor(Math.random()*arr.length)];
+}
+</script>
+
+</body>
+</html>
