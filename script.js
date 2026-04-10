@@ -20,6 +20,7 @@ function render() {
 
 document.getElementById("formData").addEventListener("submit", function(e){
   e.preventDefault();
+
   let name = document.getElementById("name").value;
   let email = document.getElementById("email").value;
 
@@ -35,27 +36,26 @@ function del(i) {
   render();
 }
 
-// FILE UPLOAD
-function uploadFile() {
-  let file = document.getElementById("fileInput").files[0];
+// FILE NAME SHOW
+document.getElementById("fileInput").addEventListener("change", function(){
+  let file = this.files[0];
   if(file) {
-    document.getElementById("fileName").innerText = "Uploaded: " + file.name;
+    document.getElementById("fileName").innerText = file.name;
   }
-}
+});
 
-// DOWNLOAD FILE
+// DOWNLOAD
 function downloadFile() {
-  let text = "Hello Om 🚀";
-  let blob = new Blob([text], {type:"text/plain"});
-  let link = document.createElement("a");
-  link.href = URL.createObjectURL(blob);
-  link.download = "sample.txt";
-  link.click();
+  let blob = new Blob(["Hello Om 🚀"], {type:"text/plain"});
+  let a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "file.txt";
+  a.click();
 }
 
 // CAMERA
 function startCamera() {
-  navigator.mediaDevices.getUserMedia({ video: true })
+  navigator.mediaDevices.getUserMedia({video:true})
     .then(stream => {
       document.getElementById("camera").srcObject = stream;
     });
