@@ -2,29 +2,34 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Om Advanced App</title>
+<title>Om Professional App</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <header>
-  <h1>🚀 Om Advanced App</h1>
+  <h1>🚀 Om Professional App</h1>
   <button onclick="toggleDark()">🌙</button>
 </header>
 
 <nav>
+  <a href="#home">Home</a>
   <a href="#form">Form</a>
   <a href="#list">List</a>
   <a href="#media">Media</a>
-  <a href="#upload">Upload</a>
+  <a href="#tools">Tools</a>
 </nav>
 
 <main>
 
-<!-- FORM -->
+<section id="home">
+  <h2>🏠 Home</h2>
+  <p>Welcome to my professional web app</p>
+</section>
+
 <section id="form">
-  <h2>Add User</h2>
+  <h2>📋 Add User</h2>
   <form id="formData">
     <input type="text" id="name" placeholder="Name" required>
     <input type="email" id="email" placeholder="Email" required>
@@ -32,9 +37,8 @@
   </form>
 </section>
 
-<!-- LIST -->
 <section id="list">
-  <h2>User List</h2>
+  <h2>📊 User List</h2>
   <table>
     <thead>
       <tr><th>Name</th><th>Email</th><th>Delete</th></tr>
@@ -43,42 +47,48 @@
   </table>
 </section>
 
-<!-- FILE UPLOAD -->
-<section id="upload">
-  <h2>📁 Upload File</h2>
+<section id="tools">
+  <h2>🛠 Tools</h2>
+
+  <h3>📁 Upload File</h3>
   <input type="file" id="fileInput">
-  <button onclick="uploadFile()">Upload</button>
   <p id="fileName"></p>
-</section>
 
-<!-- DOWNLOAD -->
-<section>
-  <h2>⬇️ Download File</h2>
-  <button onclick="downloadFile()">Download Sample</button>
-</section>
+  <h3>⬇️ Download</h3>
+  <button onclick="downloadFile()">Download File</button>
 
-<!-- CAMERA -->
-<section>
-  <h2>📷 Camera</h2>
+  <h3>📷 Camera</h3>
   <video id="camera" autoplay></video>
   <button onclick="startCamera()">Open Camera</button>
-</section>
 
-<!-- IMAGE PREVIEW -->
-<section>
-  <h2>🖼️ Image Preview</h2>
+  <h3>🖼 Image Preview</h3>
   <input type="file" id="imgInput" accept="image/*">
   <img id="preview" width="200">
+
 </section>
 
-<!-- SOCIAL LINKS -->
 <section id="media">
   <h2>🌐 Social Links</h2>
-  <a href="https://www.facebook.com" target="_blank">Facebook</a><br>
-  <a href="https://www.instagram.com" target="_blank">Instagram</a><br>
-  <a href="https://www.linkedin.com" target="_blank">LinkedIn</a><br>
+  <a href="https://facebook.com" target="_blank">Facebook</a><br>
+  <a href="https://instagram.com" target="_blank">Instagram</a><br>
+  <a href="https://linkedin.com" target="_blank">LinkedIn</a><br>
   <a href="https://github.com" target="_blank">GitHub</a>
 </section>
+
+<article>
+  <h3>📘 About</h3>
+  <p>This is a professional multi-feature web app.</p>
+</article>
+
+<aside>
+  <h3>🔥 Sidebar</h3>
+  <p>Extra info section</p>
+</aside>
+
+<details>
+  <summary>More Info</summary>
+  <p>Expandable content</p>
+</details>
 
 </main>
 
