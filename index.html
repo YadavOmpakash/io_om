@@ -5,47 +5,45 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Om Prakash Yadav | Free Web Tools</title>
-
-<meta name="description" content="Free online tools by Om Prakash Yadav like calculator, time, emoji, camera and useful government links.">
+<title>Om Prakash Yadav | Web Tools</title>
 
 <link rel="stylesheet" href="style.css">
 
-<meta name="google-site-verification" content="SIyi6jhs7rCPfWUsPHfxfEFWW_gHCr5W9z0pE-DpUOo" />
-
 <style>
-/* DROPDOWN */
-.dropdown {
-  position: relative;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background: #222;
-  top: 40px;
-  min-width: 150px;
-}
-
-.dropdown-content a {
-  display: block;
-  padding: 10px;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
 /* PROFILE */
 .profile {
   text-align: center;
   margin: 20px;
 }
-
 .profile img {
   width: 120px;
   border-radius: 50%;
-  border: 3px solid #00a884;
+}
+
+/* COMMENT BOX */
+.comment-box {
+  padding: 20px;
+  text-align: center;
+}
+.comment-box textarea {
+  width: 80%;
+  height: 80px;
+  margin: 10px;
+}
+
+/* FOOTER */
+footer {
+  background: #111;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+/* LOGIN */
+#loginBox {
+  text-align: center;
+  padding: 20px;
 }
 </style>
 
@@ -54,35 +52,40 @@
 <body>
 
 <header>
-  <h1>🚀 Om Pro </h1>
-  <p>10+ Functional Tools & Govt Links</p>
+  <h1>🚀 Om Pro</h1>
+  <p>All Tools + Features</p>
 </header>
 
-<!-- ADVANCED NAVBAR -->
-<nav>
-  <a href="index.html">Home</a>
-  <a href="page1.html">Time</a>
-  <a href="page2.html">Calc</a>
-
-  <div class="dropdown">
-    <a href="#">More ▼</a>
-    <div class="dropdown-content">
-      <a href="page3.html">Emoji</a>
-      <a href="page4.html">Date</a>
-      <a href="page5.html">Counter</a>
-      <a href="page11.html">Govt Links</a>
-    </div>
-  </div>
-</nav>
-
-<!-- PROFILE SECTION -->
-<div class="profile">
-  <!-- Apni image yaha daalo -->
-  <img src="profile.jpg" alt="Om Prakash Yadav">
-  <h2>Om Prakash Yadav</h2>
-  <p>Web Developer</p>
+<!-- LOGIN -->
+<div id="loginBox">
+  <h2>Login</h2>
+  <input type="text" id="user" placeholder="Username"><br><br>
+  <input type="password" id="pass" placeholder="Password"><br><br>
+  <button onclick="login()">Login</button>
+  <p id="msg"></p>
 </div>
 
+<!-- MAIN CONTENT -->
+<div id="main" style="display:none;">
+
+<!-- PROFILE -->
+<div class="profile">
+  <img id="profilePic" src="" alt="Profile">
+  <h2>Om Prakash Yadav</h2>
+</div>
+
+<!-- IMAGE UPLOAD -->
+<div style="text-align:center;">
+  <input type="file" onchange="loadImage(event)">
+</div>
+
+<!-- CAMERA -->
+<div style="text-align:center; margin:20px;">
+  <video id="video" width="300" autoplay></video><br>
+  <button onclick="startCamera()">Start Camera</button>
+</div>
+
+<!-- TOOLS -->
 <div class="container">
 
   <div class="card">
@@ -95,33 +98,73 @@
     <button onclick="openPage('page2.html')">Open</button>
   </div>
 
-  <div class="card">
-    <h3>😀 Emoji</h3>
-    <button onclick="openPage('page3.html')">Open</button>
-  </div>
+</div>
 
-  <div class="card">
-    <h3>📅 Date</h3>
-    <button onclick="openPage('page4.html')">Open</button>
-  </div>
+<!-- IFRAME -->
+<iframe id="frame" width="100%" height="300"></iframe>
 
-  <div class="card">
-    <h3>🏛️ Govt Links</h3>
-    <button onclick="openPage('page11.html')">Open</button>
-  </div>
+<!-- COMMENT -->
+<div class="comment-box">
+  <h3>💬 Add Comment</h3>
+  <textarea id="comment"></textarea><br>
+  <button onclick="addComment()">Submit</button>
+  <p id="showComment"></p>
+</div>
 
 </div>
 
-<!-- IFRAME (PAGE LOAD HERE) -->
-<div style="padding:20px;">
-  <iframe id="frame" width="100%" height="400px"></iframe>
-</div>
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Om Prakash Yadav</p>
+  <button onclick="changeColor()">Change Background</button>
+</footer>
 
-<!-- JAVASCRIPT FUNCTION -->
+<!-- JS -->
 <script>
-function openPage(page) {
+
+// LOGIN FUNCTION
+function login(){
+  let u = document.getElementById("user").value;
+  let p = document.getElementById("pass").value;
+
+  if(u=="om" && p=="123"){
+    document.getElementById("main").style.display="block";
+    document.getElementById("loginBox").style.display="none";
+  } else {
+    document.getElementById("msg").innerHTML="Wrong Login";
+  }
+}
+
+// IMAGE UPLOAD
+function loadImage(event){
+  let img = document.getElementById("profilePic");
+  img.src = URL.createObjectURL(event.target.files[0]);
+}
+
+// CAMERA
+function startCamera(){
+  navigator.mediaDevices.getUserMedia({video:true})
+  .then(stream=>{
+    document.getElementById("video").srcObject = stream;
+  });
+}
+
+// COMMENT
+function addComment(){
+  let text = document.getElementById("comment").value;
+  document.getElementById("showComment").innerHTML = text;
+}
+
+// IFRAME
+function openPage(page){
   document.getElementById("frame").src = page;
 }
+
+// FOOTER COLOR CHANGE
+function changeColor(){
+  document.body.style.background = "#" + Math.floor(Math.random()*16777215).toString(16);
+}
+
 </script>
 
 </body>
