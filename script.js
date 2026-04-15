@@ -1,3 +1,4 @@
+// ================= USERS =================
 let users = JSON.parse(localStorage.getItem("users")) || [];
 
 function save() {
@@ -11,40 +12,49 @@ function render() {
       <tr>
         <td>${u.name}</td>
         <td>${u.email}</td>
-        <td><button onclick="del(${i})">❌</button></td>
+        <td><button onclick="delUser(${i})">❌</button></td>
       </tr>
     `;
   });
-  document.getElementById("data").innerHTML = html;
+
+  let table = document.getElementById("data");
+  if(table) table.innerHTML = html;
 }
 
-document.getElementById("formData").addEventListener("submit", function(e){
-  e.preventDefault();
-
-  let name = document.getElementById("name").value;
-  let email = document.getElementById("email").value;
-
-  users.push({name, email});
-  save();
-  render();
-  this.reset();
-});
-
-function del(i) {
+function delUser(i) {
   users.splice(i,1);
   save();
   render();
 }
 
-// FILE NAME SHOW
-document.getElementById("fileInput").addEventListener("change", function(){
-  let file = this.files[0];
-  if(file) {
-    document.getElementById("fileName").innerText = file.name;
-  }
-});
+// ================= FORM =================
+let form = document.getElementById("formData");
+if(form){
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
 
-// DOWNLOAD
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+
+    users.push({name, email});
+    save();
+    render();
+    this.reset();
+  });
+}
+
+// ================= FILE NAME =================
+let fileInput = document.getElementById("fileInput");
+if(fileInput){
+  fileInput.addEventListener("change", function(){
+    let file = this.files[0];
+    if(file) {
+      document.getElementById("fileName").innerText = file.name;
+    }
+  });
+}
+
+// ================= DOWNLOAD =================
 function downloadFile() {
   let blob = new Blob(["Hello Om 🚀"], {type:"text/plain"});
   let a = document.createElement("a");
@@ -53,7 +63,7 @@ function downloadFile() {
   a.click();
 }
 
-// CAMERA
+// ================= CAMERA =================
 function startCamera() {
   navigator.mediaDevices.getUserMedia({video:true})
     .then(stream => {
@@ -61,41 +71,41 @@ function startCamera() {
     });
 }
 
-// IMAGE PREVIEW
-document.getElementById("imgInput").addEventListener("change", function(){
-  let file = this.files[0];
-  if(file) {
-    document.getElementById("preview").src = URL.createObjectURL(file);
-  }
-});
+// ================= IMAGE PREVIEW =================
+let imgInput = document.getElementById("imgInput");
+if(imgInput){
+  imgInput.addEventListener("change", function(){
+    let file = this.files[0];
+    if(file) {
+      document.getElementById("preview").src = URL.createObjectURL(file);
+    }
+  });
+}
 
-// DARK MODE
+// ================= DARK MODE =================
 function toggleDark() {
   document.body.classList.toggle("dark");
 }
 
+// ================= LOGIN SYSTEM =================
 
-<script>
-
-// AUTO LOGIN CHECK (page reload pe bhi login rahe)
-window.onload = function() {
+// Page load pe check
+window.addEventListener("load", function() {
   if(localStorage.getItem("login") === "true"){
     showMain();
   }
-}
+});
 
-// LOGIN FUNCTION
+// LOGIN
 function login(){
   let u = document.getElementById("user").value.trim();
   let p = document.getElementById("pass").value.trim();
 
-  // validation
   if(u === "" || p === ""){
     document.getElementById("msg").innerHTML = "⚠️ Enter username & password";
     return;
   }
 
-  // demo credentials
   if(u === "om" && p === "123"){
     localStorage.setItem("login", "true");
     localStorage.setItem("username", u);
@@ -105,24 +115,28 @@ function login(){
   }
 }
 
-// SHOW MAIN CONTENT
+// SHOW MAIN
 function showMain(){
-  document.getElementById("main").style.display = "block";
-  document.getElementById("loginBox").style.display = "none";
+  let main = document.getElementById("main");
+  let loginBox = document.getElementById("loginBox");
+
+  if(main && loginBox){
+    main.style.display = "block";
+    loginBox.style.display = "none";
+  }
 
   let name = localStorage.getItem("username");
-  if(name){
-    document.querySelector(".profile h2").innerHTML = "Welcome " + name;
+  let title = document.querySelector(".profile h2");
+
+  if(name && title){
+    title.innerHTML = "Welcome " + name;
   }
+
+  render(); // login ke baad data load
 }
 
-// LOGOUT FUNCTION
+// LOGOUT
 function logout(){
   localStorage.clear();
   location.reload();
 }
-
-</script>
-    
-
-render();
