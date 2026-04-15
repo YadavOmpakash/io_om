@@ -165,6 +165,19 @@ function changeColor(){
   document.body.style.background = "#" + Math.floor(Math.random()*16777215).toString(16);
 }
 
+<textarea id="postText"></textarea>
+<input type="file" id="imageUpload">
+
+<input type="text" id="search" onkeyup="searchPosts()" placeholder="Search...">
+
+<div id="posts"></div>
+
+<button onclick="addPost()">Post</button>
+<button onclick="toggleDarkMode()">🌙</button>
+
+
+
+  
 </script>
 
 </body>
