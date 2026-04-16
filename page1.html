@@ -2,6 +2,203 @@
 <html>
 <body>
 
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pro Dashboard</title>
+
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:Arial; }
+
+    body { display:flex; background:#f4f4f4; }
+
+    /* SIDEBAR */
+    .sidebar {
+      width:250px;
+      height:100vh;
+      background:#1e293b;
+      color:white;
+      padding:20px;
+      position:fixed;
+    }
+
+    .sidebar h2 { margin-bottom:20px; }
+
+    .sidebar a {
+      display:block;
+      padding:10px;
+      color:white;
+      text-decoration:none;
+      margin:5px 0;
+    }
+
+    .sidebar a:hover {
+      background:#334155;
+      border-radius:5px;
+    }
+
+    /* MAIN */
+    .main {
+      margin-left:250px;
+      width:100%;
+    }
+
+    /* HEADER */
+    .header {
+      background:white;
+      padding:15px;
+      display:flex;
+      justify-content:space-between;
+      box-shadow:0 2px 5px gray;
+    }
+
+    /* CARDS */
+    .cards {
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+      gap:20px;
+      padding:20px;
+    }
+
+    .card {
+      background:white;
+      padding:20px;
+      border-radius:10px;
+      box-shadow:0 0 10px gray;
+    }
+
+    /* TABLE */
+    .table-box {
+      margin:20px;
+      background:white;
+      padding:20px;
+      border-radius:10px;
+    }
+
+    table {
+      width:100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding:10px;
+      border-bottom:1px solid #ddd;
+      text-align:left;
+    }
+
+    th { background:#eee; }
+
+    /* BUTTON */
+    .btn {
+      padding:5px 10px;
+      border:none;
+      background:green;
+      color:white;
+      cursor:pointer;
+    }
+
+    /* RESPONSIVE */
+    @media(max-width:768px){
+      .sidebar { display:none; }
+      .main { margin-left:0; }
+    }
+
+  </style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <h2>OmPanel</h2>
+  <a href="#">Dashboard</a>
+  <a href="#">Users</a>
+  <a href="#">Reports</a>
+  <a href="#">Settings</a>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h3>Dashboard</h3>
+    <button onclick="toggleDark()">🌙</button>
+  </div>
+
+  <!-- CARDS -->
+  <div class="cards">
+    <div class="card">
+      <h3>Users</h3>
+      <p id="userCount">100</p>
+    </div>
+
+    <div class="card">
+      <h3>Revenue</h3>
+      <p>$5000</p>
+    </div>
+
+    <div class="card">
+      <h3>Orders</h3>
+      <p>120</p>
+    </div>
+
+    <div class="card">
+      <h3>Growth</h3>
+      <p>+25%</p>
+    </div>
+  </div>
+
+  <!-- TABLE -->
+  <div class="table-box">
+    <h3>User Data</h3>
+
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Action</th>
+      </tr>
+
+      <tr>
+        <td>Om</td>
+        <td>om@mail.com</td>
+        <td><button class="btn" onclick="deleteRow(this)">Delete</button></td>
+      </tr>
+
+      <tr>
+        <td>Rahul</td>
+        <td>rahul@mail.com</td>
+        <td><button class="btn" onclick="deleteRow(this)">Delete</button></td>
+      </tr>
+
+    </table>
+
+  </div>
+
+</div>
+
+<script>
+
+// DELETE ROW
+function deleteRow(btn) {
+  let row = btn.parentElement.parentElement;
+  row.remove();
+}
+
+// DARK MODE
+function toggleDark() {
+  document.body.classList.toggle("dark");
+}
+
+</script>
+
+</body>
+</html>
+
+  
 <h2>⏰ Current Time</h2>
 <h1 id="time"></h1>
 <a href="index.html">⬅ Back</a>
