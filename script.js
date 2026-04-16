@@ -1,215 +1,96 @@
-// ========================
-// AUTO LOGIN + LOAD POSTS
-// ========================
-window.addEventListener("load", function () {
+// LOAD
+window.onload = function () {
   if (localStorage.getItem("login") === "true") {
-    showMain();
+    document.getElementById("loginBox").style.display = "none";
+    showSection("dashboard");
   }
-  loadPosts(); // dono ek sath chalenge
-});
+  loadPosts();
+};
 
-// ========================
 // LOGIN
-// ========================
 function login() {
-  let u = document.getElementById("user").value.trim();
-  let p = document.getElementById("pass").value.trim();
-
-  if (u === "" || p === "") {
-    document.getElementById("msg").innerHTML = "⚠️ Enter username & password";
-    return;
-  }
+  let u = document.getElementById("user").value;
+  let p = document.getElementById("pass").value;
 
   if (u === "om" && p === "123") {
     localStorage.setItem("login", "true");
-    localStorage.setItem("username", u);
-    showMain();
+    location.reload();
   } else {
-    document.getElementById("msg").innerHTML = "❌ Wrong Login";
+    document.getElementById("msg").innerText = "Wrong Login";
   }
 }
 
-// ========================
-// SHOW MAIN
-// ========================
-function showMain() {
-  document.getElementById("main").style.display = "block";
-  document.getElementById("loginBox").style.display = "none";
-
-  let name = localStorage.getItem("username");
-  if (name) {
-    document.querySelector(".profile h2").innerHTML = "Welcome " + name;
-  }
-}
-
-// ========================
 // LOGOUT
-// ========================
 function logout() {
   localStorage.clear();
   location.reload();
 }
 
-// ========================
-// PROFILE IMAGE
-// ========================
-function loadImage(event) {
-  document.getElementById("profilePic").src =
-    URL.createObjectURL(event.target.files[0]);
+// SHOW SECTION
+function showSection(id) {
+  document.querySelectorAll(".section").forEach(s => s.style.display = "none");
+  document.getElementById(id).style.display = "block";
 }
 
-// ========================
-// CAMERA
-// ========================
-function startCamera() {
-  navigator.mediaDevices.getUserMedia({ video: true })
-    .then(stream => {
-      document.getElementById("video").srcObject = stream;
-    });
-}
-
-// ========================
-// IFRAME
-// ========================
-function openPage(page) {
-  document.getElementById("frame").src = page;
-}
-
-// ========================
-// COLOR
-// ========================
-function changeColor() {
-  document.body.style.background =
-    "#" + Math.floor(Math.random() * 16777215).toString(16);
-}
-
-// ========================
-// POSTS SYSTEM
-// ========================
-let postCounter = 0;
-
-function addPost() {
-  let text = document.getElementById("postText").value;
-  let file = document.getElementById("imageUpload").files[0];
-
-  if (text === "" && !file) return;
-
-  let reader = new FileReader();
-
-  reader.onload = function (e) {
-    createPost(text, e.target.result);
-  };
-
-  if (file) reader.readAsDataURL(file);
-  else createPost(text, null);
-}
-
-// ========================
-// CREATE POST
-// ========================
-function createPost(text, image) {
-  postCounter++;
-
-  let post = document.createElement("div");
-  post.className = "post";
-
-  post.innerHTML = `
-    <p>${text}</p>
-    ${image ? `<img src="${image}" width="100%">` : ""}
-
-    <button onclick="likePost(this)">🤍 Like</button>
-
-    <div>
-      <input id="comment-input-${postCounter}" placeholder="Write comment...">
-      <button onclick="addPostComment(${postCounter})">Comment</button>
-    </div>
-
-    <div id="comments-${postCounter}"></div>
-  `;
-
-  document.getElementById("posts").prepend(post);
-
-  document.getElementById("postText").value = "";
-  document.getElementById("imageUpload").value = "";
-
-  showNotification("✅ Post Added!");
-  savePosts();
-}
-
-// ========================
-// LIKE
-// ========================
-function likePost(btn) {
-  if (btn.classList.contains("liked")) {
-    btn.classList.remove("liked");
-    btn.innerText = "🤍 Like";
-  } else {
-    btn.classList.add("liked");
-    btn.innerText = "❤️ Liked";
-  }
-}
-
-// ========================
-// COMMENT (FIXED NAME)
-// ========================
-function addPostComment(id) {
-  let input = document.getElementById("comment-input-" + id);
-  let text = input.value;
-
-  if (text === "") return;
-
-  let comment = document.createElement("p");
-  comment.innerText = "💬 " + text;
-
-  document.getElementById("comments-" + id).appendChild(comment);
-  input.value = "";
-
-  showNotification("💬 Comment Added");
-}
-
-// ========================
 // DARK MODE
-// ========================
 function toggleDarkMode() {
   document.body.classList.toggle("dark");
 }
 
-// ========================
+// MENU
+function toggleMenu() {
+  let s = document.getElementById("sidebar");
+  s.style.display = (s.style.display === "none") ? "block" : "none";
+}
+
+// POSTS
+function addPost() {
+  let text = document.getElementById("postText").value;
+  if (text === "") return;
+
+  let div = document.createElement("div");
+  div.className = "post";
+  div.innerHTML = `<p>${text}</p><button onclick="this.innerText='Liked'">Like</button>`;
+
+  document.getElementById("postsContainer").prepend(div);
+
+  savePosts();
+  document.getElementById("postText").value = "";
+}
+
 // SEARCH
-// ========================
 function searchPosts() {
   let val = document.getElementById("search").value.toLowerCase();
 
   document.querySelectorAll(".post").forEach(p => {
-    p.style.display = p.innerText.toLowerCase().includes(val) ? "block" : "none";
+    p.style.display = p.innerText.toLowerCase().includes(val)
+      ? "block"
+      : "none";
   });
 }
 
-// ========================
-// NOTIFICATION
-// ========================
-function showNotification(msg) {
-  let notif = document.createElement("div");
-  notif.className = "notification";
-  notif.innerText = msg;
-
-  document.body.appendChild(notif);
-
-  setTimeout(() => {
-    notif.remove();
-  }, 2000);
-}
-
-// ========================
-// SAVE / LOAD
-// ========================
+// SAVE
 function savePosts() {
-  localStorage.setItem("posts", document.getElementById("posts").innerHTML);
+  localStorage.setItem("posts", document.getElementById("postsContainer").innerHTML);
 }
 
+// LOAD
 function loadPosts() {
   let data = localStorage.getItem("posts");
   if (data) {
-    document.getElementById("posts").innerHTML = data;
+    document.getElementById("postsContainer").innerHTML = data;
   }
+}
+
+// TABLE
+function addRow() {
+  let name = document.getElementById("name").value;
+  if (name === "") return;
+
+  let row = `<tr>
+    <td>${name}</td>
+    <td><button onclick="this.parentElement.parentElement.remove()">Delete</button></td>
+  </tr>`;
+
+  document.getElementById("tableData").innerHTML += row;
 }
