@@ -1,11 +1,5 @@
 <!DOCTYPE html>
 <html>
-<body>
-
-
-
-<!DOCTYPE html>
-<html>
 <head>
   <title>Pro Dashboard</title>
 
@@ -14,7 +8,6 @@
 
     body { display:flex; background:#f4f4f4; }
 
-    /* SIDEBAR */
     .sidebar {
       width:250px;
       height:100vh;
@@ -23,8 +16,6 @@
       padding:20px;
       position:fixed;
     }
-
-    .sidebar h2 { margin-bottom:20px; }
 
     .sidebar a {
       display:block;
@@ -39,13 +30,11 @@
       border-radius:5px;
     }
 
-    /* MAIN */
     .main {
       margin-left:250px;
       width:100%;
     }
 
-    /* HEADER */
     .header {
       background:white;
       padding:15px;
@@ -54,7 +43,6 @@
       box-shadow:0 2px 5px gray;
     }
 
-    /* CARDS */
     .cards {
       display:grid;
       grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
@@ -69,7 +57,6 @@
       box-shadow:0 0 10px gray;
     }
 
-    /* TABLE */
     .table-box {
       margin:20px;
       background:white;
@@ -85,12 +72,8 @@
     th, td {
       padding:10px;
       border-bottom:1px solid #ddd;
-      text-align:left;
     }
 
-    th { background:#eee; }
-
-    /* BUTTON */
     .btn {
       padding:5px 10px;
       border:none;
@@ -99,10 +82,14 @@
       cursor:pointer;
     }
 
-    /* RESPONSIVE */
-    @media(max-width:768px){
-      .sidebar { display:none; }
-      .main { margin-left:0; }
+    /* TIME BOX */
+    .time-box {
+      margin:20px;
+      background:white;
+      padding:20px;
+      border-radius:10px;
+      text-align:center;
+      font-size:20px;
     }
 
   </style>
@@ -128,27 +115,18 @@
     <button onclick="toggleDark()">🌙</button>
   </div>
 
+  <!-- TIME -->
+  <div class="time-box">
+    ⏰ Current Time:
+    <h1 id="time"></h1>
+  </div>
+
   <!-- CARDS -->
   <div class="cards">
-    <div class="card">
-      <h3>Users</h3>
-      <p id="userCount">100</p>
-    </div>
-
-    <div class="card">
-      <h3>Revenue</h3>
-      <p>$5000</p>
-    </div>
-
-    <div class="card">
-      <h3>Orders</h3>
-      <p>120</p>
-    </div>
-
-    <div class="card">
-      <h3>Growth</h3>
-      <p>+25%</p>
-    </div>
+    <div class="card"><h3>Users</h3><p>100</p></div>
+    <div class="card"><h3>Revenue</h3><p>$5000</p></div>
+    <div class="card"><h3>Orders</h3><p>120</p></div>
+    <div class="card"><h3>Growth</h3><p>+25%</p></div>
   </div>
 
   <!-- TABLE -->
@@ -173,7 +151,6 @@
         <td>rahul@mail.com</td>
         <td><button class="btn" onclick="deleteRow(this)">Delete</button></td>
       </tr>
-
     </table>
 
   </div>
@@ -184,29 +161,21 @@
 
 // DELETE ROW
 function deleteRow(btn) {
-  let row = btn.parentElement.parentElement;
-  row.remove();
+  btn.parentElement.parentElement.remove();
 }
 
 // DARK MODE
 function toggleDark() {
-  document.body.classList.toggle("dark");
+  document.body.style.background =
+    document.body.style.background === "black" ? "#f4f4f4" : "black";
 }
 
-</script>
-
-</body>
-</html>
-
-  
-<h2>⏰ Current Time</h2>
-<h1 id="time"></h1>
-<a href="index.html">⬅ Back</a>
-
-<script>
+// TIME
 setInterval(()=>{
-  document.getElementById("time").innerText = new Date().toLocaleTimeString();
+  document.getElementById("time").innerText =
+    new Date().toLocaleTimeString();
 },1000);
+
 </script>
 
 </body>
