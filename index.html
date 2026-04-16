@@ -3,26 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Om Pro App</title>
-
-<meta name="google-site-verification" content="SIyi6jhs7rCPfWUsPHfxfEFWW_gHCr5W9z0pE-DpUOo" />
-
+<title>Om Pro </title>
+  <meta name="google-site-verification" content="SIyi6jhs7rCPfWUsPHfxfEFWW_gHCr5W9z0pE-DpUOo" />
 <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<header>
-  <h1>🚀 Om Pro</h1>
-</header>
+<!-- SIDEBAR -->
+<aside id="sidebar">
+  <h2>🚀 Om Pro</h2>
+  <a onclick="showSection('dashboard')">Dashboard</a>
+  <a onclick="showSection('posts')">Posts</a>
+  <a onclick="showSection('table')">Table</a>
+  <a onclick="logout()">Logout</a>
+</aside>
 
-<nav>
-  <a href="#">Home</a>
-  <a href="page1.html">Time</a>
-  <a href="page2.html">Calc</a>
-  <a href="page3.html">Emoji</a>
-</nav>
+<!-- MAIN -->
+<div id="main">
+
+<header>
+  <button onclick="toggleMenu()">☰</button>
+  <h2>Dashboard</h2>
+  <button onclick="toggleDarkMode()">🌙</button>
+</header>
 
 <!-- LOGIN -->
 <div id="loginBox" class="center">
@@ -33,62 +36,39 @@
   <p id="msg"></p>
 </div>
 
-<!-- MAIN -->
-<div id="main" style="display:none;">
-
-  <!-- PROFILE -->
-  <div class="profile">
-    <img id="profilePic">
-    <h2>Om Prakash Yadav</h2>
-    <input type="file" onchange="loadImage(event)">
+<!-- DASHBOARD -->
+<section id="dashboard" class="section">
+  <div class="cards">
+    <div class="card">Users: 120</div>
+    <div class="card">Posts: 80</div>
+    <div class="card">Likes: 300</div>
   </div>
+</section>
 
-  <!-- CAMERA -->
-  <div class="center">
-    <video id="video" width="250" autoplay></video><br>
-    <button onclick="startCamera()">Start Camera</button>
-  </div>
+<!-- POSTS -->
+<section id="posts" class="section">
+  <textarea id="postText" placeholder="Write something..."></textarea>
+  <input type="file" id="imageUpload"><br><br>
+  <button onclick="addPost()">Post</button>
+  <input id="search" placeholder="Search..." onkeyup="searchPosts()">
+  <div id="postsContainer"></div>
+</section>
 
-  <!-- TOOLS -->
-  <div class="container">
-    <div class="card">
-      <h3>Calculator</h3>
-      <button onclick="openPage('https://www.google.com/search?q=calculator')">Open</button>
-    </div>
-  </div>
+<!-- TABLE -->
+<section id="table" class="section">
+  <input id="name" placeholder="Name">
+  <button onclick="addRow()">Add</button>
 
-  <iframe id="frame" width="100%" height="200"></iframe>
-
-  <!-- COMMENT -->
-  <div class="center">
-    <textarea id="comment"></textarea><br>
-    <button onclick="addComment()">Comment</button>
-    <p id="showComment"></p>
-  </div>
-
-  <!-- SOCIAL -->
-  <div class="center">
-    <h3>Create Post</h3>
-
-    <textarea id="postText"></textarea><br>
-    <input type="file" id="imageUpload"><br><br>
-
-    <input id="search" placeholder="Search..." onkeyup="searchPosts()"><br><br>
-
-    <button onclick="addPost()">Post</button>
-    <button onclick="toggleDarkMode()">🌙</button>
-
-    <div id="posts"></div>
-  </div>
+  <table>
+    <thead>
+      <tr><th>Name</th><th>Action</th></tr>
+    </thead>
+    <tbody id="tableData"></tbody>
+  </table>
+</section>
 
 </div>
 
-<footer>
-  <p>© Om Prakash Yadav</p>
-  <button onclick="changeColor()">Change Color</button>
-</footer>
-
 <script src="script.js"></script>
-
 </body>
 </html>
