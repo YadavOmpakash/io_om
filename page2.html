@@ -1,6 +1,177 @@
+
 <!DOCTYPE html>
 <html>
+<head>
+  <title>SPA Dashboard</title>
+
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:Arial; }
+
+    body { display:flex; background:#f4f4f4; }
+
+    /* SIDEBAR */
+    .sidebar {
+      width:250px;
+      height:100vh;
+      background:#1e293b;
+      color:white;
+      padding:20px;
+    }
+
+    .sidebar h2 { margin-bottom:20px; }
+
+    .sidebar a {
+      display:block;
+      padding:10px;
+      color:white;
+      text-decoration:none;
+      margin:5px 0;
+      cursor:pointer;
+    }
+
+    .sidebar a:hover {
+      background:#334155;
+      border-radius:5px;
+    }
+
+    /* MAIN */
+    .main {
+      flex:1;
+    }
+
+    /* HEADER */
+    .header {
+      background:white;
+      padding:15px;
+      display:flex;
+      justify-content:space-between;
+      box-shadow:0 2px 5px gray;
+    }
+
+    /* CONTENT */
+    .content {
+      padding:20px;
+    }
+
+    .card {
+      background:white;
+      padding:20px;
+      border-radius:10px;
+      box-shadow:0 0 10px gray;
+      margin-bottom:20px;
+    }
+
+    table {
+      width:100%;
+      border-collapse:collapse;
+    }
+
+    th, td {
+      padding:10px;
+      border-bottom:1px solid #ddd;
+    }
+
+    button {
+      padding:5px 10px;
+      background:green;
+      color:white;
+      border:none;
+      cursor:pointer;
+    }
+
+    @media(max-width:768px){
+      .sidebar { display:none; }
+    }
+
+  </style>
+</head>
+
 <body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <h2>OmPanel</h2>
+  <a onclick="loadPage('dashboard')">Dashboard</a>
+  <a onclick="loadPage('users')">Users</a>
+  <a onclick="loadPage('reports')">Reports</a>
+  <a onclick="loadPage('settings')">Settings</a>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <div class="header">
+    <h3 id="title">Dashboard</h3>
+    <button onclick="toggleDark()">🌙</button>
+  </div>
+
+  <div class="content" id="content">
+    <!-- Dynamic content yaha load hoga -->
+  </div>
+
+</div>
+
+<script>
+
+// LOAD PAGE FUNCTION (SPA CORE)
+function loadPage(page) {
+  let content = document.getElementById("content");
+  let title = document.getElementById("title");
+
+  if (page === "dashboard") {
+    title.innerText = "Dashboard";
+    content.innerHTML = `
+      <div class="card"><h3>Users</h3><p>100</p></div>
+      <div class="card"><h3>Revenue</h3><p>$5000</p></div>
+    `;
+  }
+
+  if (page === "users") {
+    title.innerText = "Users";
+    content.innerHTML = `
+      <div class="card">
+        <h3>User List</h3>
+        <table>
+          <tr><th>Name</th><th>Action</th></tr>
+          <tr><td>Om</td><td><button onclick="deleteRow(this)">Delete</button></td></tr>
+          <tr><td>Rahul</td><td><button onclick="deleteRow(this)">Delete</button></td></tr>
+        </table>
+      </div>
+    `;
+  }
+
+  if (page === "reports") {
+    title.innerText = "Reports";
+    content.innerHTML = `
+      <div class="card"><h3>Reports Section</h3><p>Analytics data here</p></div>
+    `;
+  }
+
+  if (page === "settings") {
+    title.innerText = "Settings";
+    content.innerHTML = `
+      <div class="card"><h3>Settings</h3><p>Profile, Security</p></div>
+    `;
+  }
+}
+
+// DELETE ROW
+function deleteRow(btn) {
+  btn.parentElement.parentElement.remove();
+}
+
+// DARK MODE
+function toggleDark() {
+  document.body.classList.toggle("dark");
+}
+
+// DEFAULT LOAD
+loadPage("dashboard");
+
+</script>
+
+
+
 
 <h2>⏰ Current Time</h2>
 <h1 id="time"></h1>
@@ -12,5 +183,20 @@ setInterval(()=>{
 },1000);
 </script>
 
+
+  
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
