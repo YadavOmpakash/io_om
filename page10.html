@@ -11,5 +11,186 @@
 <br><br>
 <a href="index.html">⬅ Back</a>
 
+
+
+
+
+
+
+    <title>Calculator + Image Slider</title>
+
+    <style>
+        body{
+            text-align:center;
+            font-family:Arial;
+        }
+
+        /* -------- Calculator -------- */
+        .calculator{
+            display:inline-block;
+            margin-top:20px;
+        }
+
+        .part{
+            display:flex;
+        }
+
+        .calculator button{
+            padding:10px;
+            border:2px solid black;
+            border-radius:5px;
+            font-size:22px;
+            height:60px;
+            width:60px;
+        }
+
+        .input-val{
+            height:60px;
+            width:250px;
+            border:2px solid black;
+            border-radius:8px;
+            font-size:22px;
+            text-align:right;
+            padding-right:10px;
+        }
+
+        /* -------- Image Slider -------- */
+        .images{
+            height:250px;
+            width:300px;
+            margin:20px auto;
+            position:relative;
+            overflow:hidden;
+            border:2px solid black;
+        }
+
+        .slide-image img{
+            height:100%;
+            width:100%;
+            position:absolute;
+            transition:0.5s;
+        }
+
+        button.slider-btn{
+            margin:10px;
+            padding:8px 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== Calculator ===== -->
+    <h2>Calculator</h2>
+
+    <input type="text" class="input-val" placeholder="0">
+
+    <div class="calculator">
+        <div class="part">
+            <button onclick="getValue('1')">1</button>
+            <button onclick="getValue('2')">2</button>
+            <button onclick="getValue('3')">3</button>
+            <button onclick="getValue('4')">4</button>
+        </div>
+
+        <div class="part">
+            <button onclick="getValue('5')">5</button>
+            <button onclick="getValue('6')">6</button>
+            <button onclick="getValue('7')">7</button>
+            <button onclick="getValue('8')">8</button>
+        </div>
+
+        <div class="part">
+            <button onclick="getValue('9')">9</button>
+            <button onclick="getValue('0')">0</button>
+            <button onclick="getValue('.')">.</button>
+            <button onclick="getValue('%')">%</button>
+        </div>
+
+        <div class="part">
+            <button onclick="getValue('+')">+</button>
+            <button onclick="getValue('-')">-</button>
+            <button onclick="getValue('*')">*</button>
+            <button onclick="getValue('/')">/</button>
+        </div>
+
+        <div class="part">
+            <button onclick="clearValue()">C</button>
+            <button onclick="getResult()">=</button>
+        </div>
+    </div>
+
+    <!-- ===== Image Slider ===== -->
+    <h2>Image Slider</h2>
+
+    <div class="images">
+        <div class="slide-image">
+            <img src="one.jpg">
+            <img src="two.jpg">
+            <img src="three.jpg">
+        </div>
+    </div>
+
+    <button class="slider-btn" onclick="previousImage()">Previous</button>
+    <button class="slider-btn" onclick="nextImage()">Next</button>
+
+    <!-- ===== JavaScript ===== -->
+    <script>
+
+        /* -------- Calculator JS -------- */
+        function getValue(val){
+            document.querySelector(".input-val").value += val;
+        }
+
+        function clearValue(){
+            document.querySelector(".input-val").value = '';
+        }
+
+        function getResult(){
+            try{
+                let result = eval(document.querySelector(".input-val").value);
+                document.querySelector(".input-val").value = result;
+            }catch{
+                alert("Invalid Input");
+            }
+        }
+
+
+        /* -------- Slider JS -------- */
+        let images = document.querySelectorAll(".slide-image img");
+        let index = 0;
+
+        function showImage(){
+            images.forEach((img, i)=>{
+                img.style.transform = `translateX(${(i - index) * 100}%)`;
+            });
+        }
+
+        function nextImage(){
+            index++;
+            if(index >= images.length){
+                index = 0;
+            }
+            showImage();
+        }
+
+        function previousImage(){
+            index--;
+            if(index < 0){
+                index = images.length - 1;
+            }
+            showImage();
+        }
+
+        showImage(); // initial load
+
+    </script>
+
+
+
+
+
+
+  
 </body>
 </html>
